@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'css/air-datepicker.css' %}">
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Helvetica" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+
+
+</head>
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Организации</h2>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Название</th>
+                            <th>Описание</th>
+                            <th>Адрес</th>
+                            <th>Почтовый индекс</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for organization in organizations %}
+                            <tr>
+                                <td>{{ organization.title }}</td>
+                                <td>{{ organization.description }}</td>
+                                <td>{{ organization.address }}</td>
+                                <td>{{ organization.postcode }}</td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="4">Нет доступных организаций.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Мероприятия</h2>
+            <div id="calendar" class="form-control"></div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/air-datepicker.js' %}"></script>
+    <script>
+        import AirDatepicker from 'air-datepicker';
+        let today = new Date();
+
+        let dp = new AirDatepicker('#calendar', {
+            onRenderCell({date, cellType}) {
+                let dates = [1, 5, 7, 10, 15, 20, 25],
+                    emoji = ['💕', '😃', '🍙', '🍣', '🍻', '🎉', '🥁'],
+                    isDay = cellType === 'day',
+                    _date = date.getDate(),
+                    shouldChangeContent = isDay && dates.includes(_date),
+                    randomEmoji = emoji[Math.floor(Math.random() * emoji.length)];
+            
+                return {
+                    html: shouldChangeContent ? randomEmoji : undefined,
+                    classes: shouldChangeContent ? '-emoji-cell-' : undefined,
+                    attrs: {
+                        title: shouldChangeContent ? randomEmoji : ''
+                    }
+                }
+            },
+            selectedDates: new Date(today.getFullYear(), today.getMonth(), 10)
+        });
+        dp.show()
+        dp.visible(true)
+    </script>
+{% endblock %}

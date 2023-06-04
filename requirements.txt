@@ -1,0 +1,7 @@
+Django==3.2
+djangorestframework==3.12
+djoser
+daphne==4.0.0
+channels==4.0.0
+django-crispy-forms
+bootstrap4

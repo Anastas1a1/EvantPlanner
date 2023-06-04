@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Добро пожаловать в Event Planner!</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn custom-button" type="submit">Регистрация</button>
+            </div>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Уже есть аккаунт? <a class="ml-2" href="#">Вход</a>
+            </small>
+        </div>
+    </div>
+{% endblock content %}
+
+<!-- {% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Регистрация</title>
+</head>
+
+<body>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <div class="registration-cssave">
+        <form method="post" action="{% url 'register' %}">
+            {% csrf_token %}
+            <h1>Регистрация</h1>
+            <!-- {{ form }}-->
+            <div class="form-group">
+                <input class="form-control item" type="email" name="email" id="email" placeholder="Email" required>
+            </div>
+            <div>
+                <input class="form-control item" type="password" name="password" minlength="6" id="password"
+                    placeholder="Пароль" required>
+            </div>
+            <div>
+                <input class="form-control item" type="password" name="password2" minlength="6" id="password"
+                    placeholder="Повторите пароль" required>
+            </div>
+            <button class="btn btn-primary btn-block create-account" type="submit">Зарегистрироваться</button>
+        </form>
+    </div>
+</body>
+
+</html> -->

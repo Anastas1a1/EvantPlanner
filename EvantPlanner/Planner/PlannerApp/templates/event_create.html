@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<head>
+    <title>Создать событие</title>
+    <link rel="stylesheet" href="{% static 'css/air-datepicker.css' %}">
+    <script src="{% static 'js/air-datepicker.js' %}"></script>
+</head>
+<body>
+    <h1>Создать событие</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn custom-button">Создать</button>
+    </form>
+    <script>
+        import AirDatepicker from 'air-datepicker';
+        import 'air-datepicker/air-datepicker.css';
+        new AirDatepicker('#datepicker dateinput form-control', {
+            inline: true
+        })
+        
+        // $(document).ready(function() {
+        //     $('.datepicker').datepicker({
+        //         dateFormat: 'yyyy-mm-dd HH:ii',
+        //         timepicker: true,
+        //         language: 'ru',
+        //         autoClose: true
+        //     });
+        // });
+    </script>
+</body>
+{% endblock %}
